@@ -2,8 +2,6 @@ use v6;
 
 unit module Crust::Utils;
 
-use MONKEY-SEE-NO-EVAL;
-
 # internal use only. we'll change this file without notice.
 
 sub parse-header-line(Str $header) is export {
@@ -56,9 +54,7 @@ sub content-length($body) is export {
 }
 
 multi sub load-class($class) is export {
-    # FIXME: workaround for Bug RT #130535
-    # ref: https://github.com/tokuhirom/p6-Crust/pull/86
-    EVAL "use $class";
+    require ::($class);
     return $class;
 }
 
